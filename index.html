@@ -1,0 +1,42 @@
+---
+layout: default
+---
+
+<main class="landing">
+  <h1>{{ site.title }}</h1>
+  <section class="intro">
+    <div class="text">
+      Common Lisp web apps on the desktop.
+    </div>
+  </section>
+  <section class="example">
+    <div class="column">
+      <div class="code">
+        <pre>
+          <code class="lisp">
+CL-USER> (ql:quickload :ceramic)
+
+CL-USER> (ceramic.setup:setup)
+
+CL-USER> (ceramic:interactive)
+
+CL-USER> (defvar window (ceramic:make-window :title "My Window"
+                                             :url "https://www.google.com/"))
+
+CL-USER> (ceramic:show-window window)
+          </code>
+        </pre>
+      </div>
+    </div>
+    <div class="column">
+      <div class="window">
+        <div class="titlebar">
+          <span class="title">
+            My Window
+          </span>
+        </div>
+        <div class="body"></div>
+      </div>
+    </div>
+  </section>
+</main>
