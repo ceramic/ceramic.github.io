@@ -1,0 +1,53 @@
+---
+---
+
+/* Global style */
+
+*, *:after, *:before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* Landing page style */
+
+.landing {
+  .example {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 40px;
+
+    .column {
+      width: 50%;
+
+      .code {
+        border: 1px solid #ccc;
+      }
+
+      .window {
+        width: 100%;
+        border: 1px solid black;
+
+        .titlebar {
+          text-align: center;
+          border-bottom: 1px solid #ccc;
+          height: 30px;
+          line-height: 30px;
+        }
+
+        .body {
+          width: 100%;
+          min-height: 300px;
+          padding: 10px;
+          background-image: url(/assets/img/google.png);
+          background-size: auto 100%;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+}
