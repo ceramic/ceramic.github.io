@@ -11,21 +11,30 @@ layout: default
   </header>
   <section class="example">
     <div class="column">
-      <div class="code">
-        <pre>
-          <code class="lisp">
-CL-USER> (ql:quickload :ceramic)
+      <div class="window">
+        <div class="titlebar">
+          <span class="title">
+            app.lisp
+          </span>
+        </div>
+        <div class="body">
+          <div class="code">
+            <pre>
+              <code class="lisp">
+(ql:quickload :ceramic)
 
-CL-USER> (ceramic.setup:setup)
+(ceramic.setup:setup)
 
-CL-USER> (ceramic:interactive)
+(ceramic:interactive)
 
-CL-USER> (defvar window (ceramic:make-window :title "My Window"
-                                             :url "https://www.google.com/"))
+(defvar window (ceramic:make-window :title "My Window"
+                                    :url "https://www.google.com/"))
 
-CL-USER> (ceramic:show-window window)
-          </code>
-        </pre>
+(ceramic:show-window window)
+              </code>
+            </pre>
+          </div>
+        </div>
       </div>
     </div>
     <div class="column">
