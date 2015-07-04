@@ -202,9 +202,14 @@ footer {
       background-repeat: no-repeat;
     }
 
+    .body:not(.app-screenshot) {
+      background: white;
+    }
+
     .column-container {
       width: 100%;
       display: flex;
+      align-items: center;
 
       @include on-desktop() {
         flex-direction: row;
@@ -235,14 +240,12 @@ footer {
           line-height: 30px;
           font-family: $sans-font;
           background: #f3f3f5;
-
           color: #555;
         }
 
         .body {
           width: 100%;
-          min-height: 300px;
-
+          height: 300px;
           border: 1px solid #f3f3f5;
           border-top: 0px;
         }

@@ -23,21 +23,20 @@ layout: default
           </div>
           <div class="body">
             <div class="code">
-              <pre>
-                <code class="lisp">
+              <pre><code class="lisp">;; Load Ceramic and our app
 (ql:quickload '(:ceramic :lucerne-utweet))
 
+;; Ensure Ceramic is set up
 (ceramic.setup:setup)
-
 (ceramic:interactive)
 
+;; Start our app
 (lucerne:start utweet.views:app :port 8000)
 
+;; Open a browser window to it
 (defvar window (ceramic:make-window :url "http://localhost:8000/"))
 
-(ceramic:show-window window)
-                </code>
-              </pre>
+(ceramic:show-window window)</code></pre>
             </div>
           </div>
         </div>
