@@ -6,45 +6,51 @@ layout: default
   <header>
     <h1>{{ site.title }}</h1>
     <div class="text">
-      Common Lisp web apps on the desktop.
+      Bring the web to the desktop.
     </div>
   </header>
   <section class="example">
-    <div class="column">
-      <div class="window">
-        <div class="titlebar">
-          <span class="title">
-            app.lisp
-          </span>
-        </div>
-        <div class="body">
-          <div class="code">
-            <pre>
-              <code class="lisp">
-(ql:quickload :ceramic)
+    <div class="text">
+      Turn web applications into native desktop apps.
+    </div>
+    <div class="column-container">
+      <div class="column">
+        <div class="window">
+          <div class="titlebar">
+            <span class="title">
+              app.lisp
+            </span>
+          </div>
+          <div class="body">
+            <div class="code">
+              <pre>
+                <code class="lisp">
+(ql:quickload '(:ceramic :lucerne-utweet))
 
 (ceramic.setup:setup)
 
 (ceramic:interactive)
 
-(defvar window (ceramic:make-window :title "My Window"
-                                    :url "https://www.google.com/"))
+(lucerne:start utweet.views:app :port 8000)
+
+(defvar window (ceramic:make-window :url "http://localhost:8000/"))
 
 (ceramic:show-window window)
-              </code>
-            </pre>
+                </code>
+              </pre>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="column">
-      <div class="window">
-        <div class="titlebar">
-          <span class="title">
-            My Window
-          </span>
+      <div class="column">
+        <div class="window">
+          <div class="titlebar">
+            <span class="title">
+              utweet
+            </span>
+          </div>
+          <div class="body app-screenshot"></div>
         </div>
-        <div class="body"></div>
       </div>
     </div>
   </section>
