@@ -179,16 +179,19 @@ footer {
     }
   }
 
-  .example {
+  section {
     width: 100%;
     padding: 40px;
-    background: #fbfbfb;
 
     .text {
       text-align: center;
       margin-bottom: 20px;
-      font-size: 22px;
+      font-size: 27px;
     }
+  }
+
+  .example {
+    background: #fbfbfb;
 
     pre {
       border: 0;
@@ -250,6 +253,16 @@ footer {
           border-top: 0px;
         }
       }
+    }
+  }
+
+  .platform {
+    background: white;
+
+    .desc {
+      width: 60%;
+      font-size: 22px;
+      margin: 0 auto;
     }
   }
 }
