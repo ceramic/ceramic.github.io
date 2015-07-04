@@ -15,6 +15,8 @@ $serif-font: 'Cardo';
 
 $link-color: #960018;
 
+$gray: #fbfbfb;
+
 $navbar-height: 50px;
 
 $footer-height: 80px;
@@ -131,7 +133,7 @@ nav {
 
 footer {
   height: $footer-height;
-  background: #f6f6f6;
+  background: $gray;
   font-family: $serif-font;
   font-size: 18px;
 
@@ -188,11 +190,17 @@ footer {
       margin-bottom: 20px;
       font-size: 27px;
     }
+
+    &:nth-child(odd) {
+      background: white;
+    }
+
+    &:nth-child(even) {
+      background: $gray;
+    }
   }
 
   .example {
-    background: #fbfbfb;
-
     pre {
       border: 0;
       background: white;
@@ -257,12 +265,14 @@ footer {
   }
 
   .platform {
-    background: white;
-
     .desc {
       width: 60%;
       font-size: 22px;
       margin: 0 auto;
+
+      p {
+        text-align: justify;
+      }
     }
   }
 }
