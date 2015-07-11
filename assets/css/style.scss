@@ -137,6 +137,7 @@ footer {
   background: $gray;
   font: $footer-font;
   padding: 55px;
+  margin-top: 100px;
 
   .links {
     display: flex;
@@ -149,12 +150,22 @@ footer {
       display: inline-block;
       font-size: 1em;
 
+      @include on-mobile() {
+        display: block;
+        margin: 30px auto;
+        text-align: center;
+      }
+
       li {
         width: 175px;
         margin-top: 10px;
         list-style-type: none;
         font-weight: 300;
         font-size: 0.9em;
+
+        @include on-mobile() {
+          text-align: center;
+        }
 
         &:first-child {
           margin-top: 12px;
@@ -376,15 +387,19 @@ footer {
 
       margin-top: 20px;
 
-      -moz-column-count: $column-count;
-      -moz-column-gap: $column-gap;
-      -webkit-column-count: $column-count;
-      -webkit-column-gap: $column-gap;
-      column-count: $column-count;
-      column-gap: $column-gap;
+      @include on-desktop() {
+        -moz-column-count: $column-count;
+        -moz-column-gap: $column-gap;
+        -webkit-column-count: $column-count;
+        -webkit-column-gap: $column-gap;
+        column-count: $column-count;
+        column-gap: $column-gap;
+      }
 
       li {
         margin-top: 10px;
+        text-align: center;
+        list-style-type: none;
       }
     }
   }
