@@ -191,6 +191,16 @@ footer {
       font-size: 27px;
     }
 
+    .desc {
+      width: 60%;
+      font-size: 22px;
+      margin: 0 auto;
+
+      p {
+        text-align: justify;
+      }
+    }
+
     &:nth-child(odd) {
       background: white;
     }
@@ -275,16 +285,6 @@ footer {
   }
 
   .platform {
-    .desc {
-      width: 60%;
-      font-size: 22px;
-      margin: 0 auto;
-
-      p {
-        text-align: justify;
-      }
-    }
-
     .systems {
       display: flex;
       flex-direction: row;
