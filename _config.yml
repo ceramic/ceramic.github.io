@@ -5,6 +5,11 @@ url: "http://ceramic.github.io"
 baseurl: ""
 
 links:
+  chat: todo
   docs: /docs/introduction.html
-  github: https://github.com/ceramic
+  tutorial: /docs/tutorial.html
+  api: /docs/api-reference.html
+  marked: https://github.com/ceramic/marked/
   repo: https://github.com/ceramic/ceramic
+  org: https://github.com/ceramic
+  issues: https://github.com/ceramic/ceramic/issues

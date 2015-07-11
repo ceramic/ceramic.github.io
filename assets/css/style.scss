@@ -23,7 +23,7 @@ $gray: #fbfbfb;
 
 $navbar-height: 50px;
 
-$footer-height: 80px;
+$footer-height: 250px;
 
 /* Mixins */
 
@@ -133,13 +133,82 @@ nav {
 }
 
 footer {
-  height: $footer-height;
+  min-height: $footer-height;
   background: $gray;
   font: $footer-font;
+  padding: 55px;
+
+  .links {
+    display: flex;
+
+    @include on-mobile() {
+      flex-direction: column;
+    }
+
+    ul {
+      display: inline-block;
+      font-size: 1em;
+
+      li {
+        width: 175px;
+        margin-top: 10px;
+        list-style-type: none;
+        font-weight: 300;
+        font-size: 0.9em;
+
+        &:first-child {
+          margin-top: 12px;
+        }
+
+        a {
+          color: #333;
+          text-decoration: none;
+        }
+      }
+
+      &:before{
+        content:attr(aria-label);
+        font-weight: bold;
+      }
+    }
+  }
 
   .copy {
+    margin-top: 30px;
+
+    @include on-mobile() {
+      text-align: center;
+    }
+  }
+}
+
+/* Window component */
+
+.window {
+  width: 100%;
+  padding: 20px;
+
+  .titlebar {
     text-align: center;
-    line-height: $footer-height;
+    border-radius: 5px 5px 0 0;
+    height: 30px;
+    line-height: 30px;
+    font-family: $sans-font;
+    font-size: 15px;
+    background: #f3f3f5;
+    color: #555;
+  }
+
+  .body {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #f3f3f5;
+    border-top: 0px;
+
+    pre {
+      border: 0;
+      background: white;
+    }
   }
 }
 
@@ -211,11 +280,6 @@ footer {
   }
 
   .example {
-    pre {
-      border: 0;
-      background: white;
-    }
-
     .get-started {
       display: block;
       width: 250px;
@@ -259,28 +323,6 @@ footer {
           width: 100%;
         }
       }
-
-      .window {
-        width: 100%;
-        padding: 20px;
-
-        .titlebar {
-          text-align: center;
-          border-radius: 5px 5px 0 0;
-          height: 30px;
-          line-height: 30px;
-          font-family: $sans-font;
-          background: #f3f3f5;
-          color: #555;
-        }
-
-        .body {
-          width: 100%;
-          height: 300px;
-          border: 1px solid #f3f3f5;
-          border-top: 0px;
-        }
-      }
     }
   }
 
@@ -307,6 +349,17 @@ footer {
           font-size: 86px;
           color: #555;
         }
+      }
+    }
+  }
+
+  .bundle {
+    .window {
+      width: 550px;
+      margin: 40px auto;
+
+      .body {
+        height: 150px;
       }
     }
   }
