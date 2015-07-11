@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Releasing &ndash; Ceramic
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">Ceramic » Releasing</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <h1 id="bundler">Bundler</h1><p></p><p>Ceramic applications can be compiled to native executables. This is done through
+the bundler, which compiles the app and its resources and external dependencies
+into a bundle. On Windows, the bundle is just a .zip file. On Unix, it's a tar
+file. The reason for this is that everyone on Windows can open a zip file, and
+zip files don't preserve executable permissions, which are rather important on
+Unix.</p><p>A bundle looks like this:</p><pre><code class="text">my-app.zip/
+  my-app ;; Executable
+  electron/
+    ... ;; The Electron code required to manage browser windows
+  resources/
+    ... ;; Application resources
+</code></pre><h2 id="api">API</h2><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">bundle</code><code class="codex-lambda-list">(system-name &amp;key bundle-pathname)</code><div class="codex-docstring">Compile the application to an executable, and ship it with its resources.</div></div><h1 id="resources">Resources</h1><p></p><p>Every web application has external resources -- web assets like CSS and
+JavaScript. And most non-trivial applications also keep data (game maps, CAD
+files, etc.) in external files. In development, this data is usually stored
+along with the source code. When releasing an application, that data has to be
+bundled and released along with it.</p><p>Ceramic has tools for managing directories with resources: You map a symbol,
+like <code>web-assets</code> or <code>game-data</code> to some directory relative to the
+application (e.g. <code>assets/build/</code>). You access that directory using a function
+that maps the symbol to a directory: in development, it just returns the
+pathname to the original directory. When you release an app, all the resources
+are copied over to the release, and the function returns the path the copied
+resource directory in the release.</p><p>For instance, assuming an application named <code>my-app</code>:</p><pre><code class="lisp">(use-package :ceramic.resource)
+
+(define-resources :my-app () ;; Name of the system
+  (web-assets #p&quot;assets/build/&quot;)
+  (landsat-images #p&quot;data/landsat/&quot;)
+  (icons #p&quot;assets/icons/&quot;))
+</code></pre><p></p><p>Then, to access the direcotry for the web assets, you use the
+<code>resource-directory</code> function:</p><pre><code class="lisp">;;; In development
+
+(resource-directory 'web-assets)
+;; =&gt; /home/eudoxia/code/my-app/assets/build/
+
+;;; In production
+
+(resource-directory 'web-assets)
+;; my-app/resources/web-assets/
+</code></pre><p></p><p>To easily create a pathname relative to a resource directory, you have the
+<code>resource</code> function:</p><pre><code class="lisp">;;; In development
+
+(resource 'web-assets #p&quot;css/style.css&quot;)
+;; =&gt; /home/eudoxia/code/my-app/assets/build/css/style.css
+
+;;; In production
+
+(resource 'web-assets #p&quot;css/style.css&quot;)
+;; my-app/resources/web-assets/css/style.css
+</code></pre><h2 id="14-api">API</h2><div class="codex-doc-node codex-operator codex-macro"><code class="codex-name">define-resources</code><code class="codex-lambda-list">(system-name nil &amp;rest pairs)</code><div class="codex-docstring">Define resource tags for a system.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource-directory</code><code class="codex-lambda-list">(resource-tag)</code><div class="codex-docstring">Return the directory associated to a resource tag.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource</code><code class="codex-lambda-list">(resource-tag pathname)</code><div class="codex-docstring">Return the pathname of a resource relative to the directory of a resource
+tag.</div></div>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

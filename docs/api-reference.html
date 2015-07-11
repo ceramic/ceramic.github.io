@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  API Reference &ndash; Ceramic
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">Ceramic » API Reference</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <h1 id="general">General</h1><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">setup</code><code class="codex-lambda-list">nil</code><div class="codex-docstring">Set up everything needed for Ceramic to run.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">interactive</code><code class="codex-lambda-list">nil</code><div class="codex-docstring">Start a process for interactive use.</div></div><h1 id="browser-windows">Browser Windows</h1><p></p><p>The core API is available on the <code>ceramic</code> package.<div class="codex-doc-node codex-record codex-class"><code class="codex-name">window</code><div class="codex-docstring">A browser window.</div><ul class="codex-slot-list"><li class="codex-slot codex-class-slot"><code class="codex-name">id</code><div class="codex-docstring">A unique string ID for the window.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">title</code><div class="codex-docstring">The window title.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">url</code><div class="codex-docstring">The window URL.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">x</code><div class="codex-docstring">Window's offset from the left.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">y</code><div class="codex-docstring">Window's offset from the top.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">width</code><div class="codex-docstring">The window's width, in pixels.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">height</code><div class="codex-docstring">The window's height, in pixels.</div></li><li class="codex-slot codex-class-slot"><code class="codex-name">resizablep</code><div class="codex-docstring">Whether or not the window is resizable.</div></li></ul></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">make-window</code><code class="codex-lambda-list">(&amp;key title url x y width height resizablep)</code><div class="codex-docstring">Create a window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">show-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Show the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">hide-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Hide the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">close-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Close the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">destroy-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Forcefully close the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">maximize-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Maximize the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">unmaximize-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Un-maximize the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">minimize-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Minimize the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">unminimize-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Un-minimize the window.</div></div><div class="codex-doc-node codex-operator codex-method"><code class="codex-name">center-window</code><code class="codex-lambda-list">((window window))</code><div class="codex-docstring">Center the window.</div></div></p><h1 id="18-resources">Resources</h1><p></p><p>Resource management tools are defined in the <code>ceramic.resource</code> package.<div class="codex-doc-node codex-operator codex-macro"><code class="codex-name">define-resources</code><code class="codex-lambda-list">(system-name nil &amp;rest pairs)</code><div class="codex-docstring">Define resource tags for a system.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource-directory</code><code class="codex-lambda-list">(resource-tag)</code><div class="codex-docstring">Return the directory associated to a resource tag.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource</code><code class="codex-lambda-list">(resource-tag pathname)</code><div class="codex-docstring">Return the pathname of a resource relative to the directory of a resource
+tag.</div></div></p><h1 id="19-releasing">Releasing</h1><p></p><p>The bundler is defined in the <code>ceramic.bundler</code> package.<div class="codex-doc-node codex-operator codex-function"><code class="codex-name">bundle</code><code class="codex-lambda-list">(system-name &amp;key bundle-pathname)</code><div class="codex-docstring">Compile the application to an executable, and ship it with its resources.</div></div></p>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

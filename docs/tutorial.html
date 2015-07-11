@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Tutorial &ndash; Ceramic
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">Ceramic » Tutorial</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <h1 id="installation">Installation</h1><p></p><p>Until Ceramic is available from Quicklisp, you have to clone it to your
+Quicklisp <code>local-projects</code> directory. Assuming your Quicklisp directory is
+<code>~/quicklisp</code>:</p><pre><code class="shell">git clone https://github.com/ceramic/ceramic.git ~/quicklisp/local-projects</code></pre><p></p><p>Then, either restart Lisp or run <code>(ql:register-local-projects)</code>.</p><h1 id="getting-started">Getting Started</h1><p></p><p>First, we need to load Ceramic. We do this with Quicklisp:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :ceramic)</code></pre><p></p><p>Ceramic needs to download some things to run, so let's do that:</p><pre><code class="lisp">CL-USER&gt; (ceramic:setup)</code></pre><p></p><p>Now we're all set up. Let's start creating some browser windows. Run the
+following code:</p><pre><code class="lisp">;; Tell Ceramic we're going to be prototyping
+(ceramic:interactive)
+
+;; Create a browser window
+(defvar window (ceramic:make-window :url &quot;https://www.google.com/&quot;
+                                    :width 800
+                                    :height 600))
+
+;; Show it
+(ceramic:show-window window)</code></pre><p></p><p>An 800-by-600 pixel browser window pointed at Google should pop up.</p><h1 id="building-a-desktop-web-app">Building a Desktop Web App</h1><p></p><p>With Ceramic, we can write a web application – using
+<a href="http://clacklisp.org/">Clack</a>– and create windows that use
+it.</p><p>We'll be using <a href="http://eudoxia.me/lucerne/">Lucerne</a>, a web framework
+built on Clack to write the web app, and Ceramic to use it as a desktop app.</p><p>First, load Lucerne:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :lucerne)</code></pre><p></p><p>Then, tell Ceramic we're going to use the interactive mode:</p><pre><code class="lisp">CL-USER&gt; (ceramic:interactive)</code></pre><p></p><p>Now, let's create a basic application. The source code and system definition of
+this app is in the <code>examples/hello-world/</code> directory of the Ceramic source
+code, so you can play around with it.</p><pre><code class="lisp">(in-package :cl-user)
+(defpackage ceramic-hello-world
+  (:use :cl :lucerne)
+  (:export :run))
+(in-package :ceramic-hello-world)
+(annot:enable-annot-syntax)
+
+;; Define an application
+(defapp app)
+
+;; Route requests to &quot;/&quot; to this function
+@route app &quot;/&quot;
+(defview hello ()
+  (respond &quot;Hello, world!&quot;))
+
+(defvar *window* nil)
+
+(defvar *port* 8000)
+
+(defun run ()
+  (setf *window*
+        (ceramic:make-window :url (format nil &quot;http://localhost:~D/&quot; *port*)))
+  (ceramic:show-window *window*)
+  (start app :port *port*))
+
+(ceramic:define-entry-point :ceramic-hello-world ()
+  (run))
+</code></pre><p></p><p>Don't worry about that <code>define-entry-point</code> macro, we'll get to that later.</p><p>Calling <code>run</code>, a browser window with the text &quot;Hello, world!&quot; should pop up.</p><h1 id="shipping">Shipping</h1><p></p><p>Ceramic can compile an application -- both produce an executable of the server
+and compile all the required resources -- into a bundle, which is basically an
+archive file. All you have to do is call the <code>bundle</code> function:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world)</code></pre><p></p><p>And that's it. Head over to the directory of the hello world example,
+<code>examples/hello-world/</code>, you'll see a <code>.tar</code> file with the app's
+executable. Extract it and run the app. A window should pop up and you should
+see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world #p&quot;build/bundle.tar&quot;)</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p></p><p>Of course, a web application isn't just routes, you also have to bundle all
+sorts of assets. Ceramic takes care of that for you.</p><p>For this example, we'll use
+<a href="https://github.com/ceramic/marked/">Marked</a>: This is a simple
+Markdown editor and previewer. On startup, you get a window with two panes: On
+the left pane, you type Markdown code, and on the left, you get the rendered
+HTML. You can see it in action below:</p><p>[SCREENSHOT]</p><p>To test the app locally, just run <code>(marked:start-app)</code>. To deploy the app, we
+run the bundler command:</p><pre><code class="lisp">(ceramic.bundler:bundle :marked)</code></pre><p></p><p>Extract the app and run it: You'll see the window pop up and you can start
+editing. Close it and the app shuts down.</p><p>The way Ceramic handles resources is by associating tags (such as <code>web-assets</code>
+or <code>data-files</code>) to certain pathnames relative to the system's source
+directory. In development, you reference a <i>resource tag</i> and get the pathname
+to that source directory. When bundling the app, resource directories are
+copied, and in production, when you reference a tag, you get the pathname to the
+copied directory inside the app's bundle.</p><p>If you look at the source of the Marked application, you'll see resources are
+defined like this:</p><pre><code class="lisp">(define-resources :marked ()(assets #p&quot;assets/&quot;)(templates #p&quot;templates/&quot;))</code></pre><p></p><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
+in the directory of the <code>:marked</code> system, and the <code>templates</code> tag is
+associated to the <code>templates/</code> directory. You can associate tags to
+directories at any depth.</p><p>We the <code>resource-directory</code> function to get the directory associated to a
+tag. In Marked we use this to set the directory where templates are stored so
+Djula can access them:</p><pre><code class="lisp">(djula:add-template-directory
+ (resource-directory 'templates))(defparameter +index+
+  (djula:compile-template* &quot;index.html&quot;))</code></pre><p></p><p>A useful function – to prevent you from calling <code>merge-pathnames</code> all
+the time – is the <code>resource</code> function: This takes a tag and a
+pathname, and is the equivalent of adding that pathname to the end of the
+directory associated to that tag:</p><pre><code class="lisp">(resource 'assets #p&quot;css/style.css&quot;)
+
+;; is the same as
+(merge-pathnames #p&quot;css/style.css&quot;
+                 (resource-directory 'assets))</code></pre>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>
