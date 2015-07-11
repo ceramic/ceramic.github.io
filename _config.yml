@@ -1,6 +1,8 @@
 title: Ceramic
 description: >
   Common Lisp web applications on the desktop.
+url: "http://ceramic.github.io"
+baseurl: ""
 
 links:
   docs: /docs/introduction.html

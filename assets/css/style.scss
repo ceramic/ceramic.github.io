@@ -284,5 +284,22 @@ footer {
         text-align: justify;
       }
     }
+
+    .systems {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin: 40px 0;
+
+      li {
+        list-style-type: none;
+        display: inline-block;
+
+        i {
+          font-size: 86px;
+          color: #555;
+        }
+      }
+    }
   }
 }
