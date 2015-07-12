@@ -13,7 +13,8 @@ $mobile-size: 740px;
 $sans-font: 'Lato';
 $serif-font: 'Cardo';
 
-$navbar-font: 400 20px $sans-font;
+$navbar-font: 400 16px $sans-font;
+$landing-header-font: 400 20px $serif-font;
 $landing-font: 400 20px $sans-font;
 $footer-font: 400 18px $sans-font;
 
@@ -21,7 +22,7 @@ $link-color: #960018;
 
 $gray: #fbfbfb;
 
-$navbar-height: 50px;
+$navbar-height: 70px;
 
 $footer-height: 250px;
 
@@ -92,10 +93,6 @@ nav {
   z-index: 1;
   box-shadow: 0px 1px 3px #ddd;
 
-  .brand, .links {
-    padding: 15px;
-  }
-
   @include on-desktop() {
     .brand {
       margin-left: 50px;
@@ -108,14 +105,24 @@ nav {
 
   .brand {
     flex: 1;
+    padding: 15px;
 
     @include on-mobile() {
       text-align: center;
+    }
+
+    a {
+      border-bottom: 0;
+
+      img {
+        width: 36px;
+      }
     }
   }
 
   .links {
     flex: 1;
+    line-height: $navbar-height;
 
     @include on-desktop() {
       text-align: right;
@@ -134,10 +141,9 @@ nav {
 
 footer {
   min-height: $footer-height;
-  background: $gray;
+  background: white;
   font: $footer-font;
   padding: 55px;
-  margin-top: 100px;
 
   .links {
     display: flex;
@@ -148,7 +154,7 @@ footer {
 
     ul {
       display: inline-block;
-      font-size: 1em;
+      font-size: 18px;
 
       @include on-mobile() {
         display: block;
@@ -161,7 +167,7 @@ footer {
         margin-top: 10px;
         list-style-type: none;
         font-weight: 300;
-        font-size: 0.9em;
+        font-size: 16px;
 
         @include on-mobile() {
           text-align: center;
@@ -186,6 +192,7 @@ footer {
 
   .copy {
     margin-top: 30px;
+    font-size: 16px;
 
     @include on-mobile() {
       text-align: center;
@@ -231,6 +238,7 @@ footer {
   header {
     height: 280px;
     overflow: hidden;
+    font: $landing-header-font;
 
     h1 {
       font-size: 60px;
@@ -371,6 +379,18 @@ footer {
 
       .body {
         height: 150px;
+      }
+    }
+  }
+
+  .example {
+    .image {
+      margin: 60px 0;
+
+      img {
+        display: block;
+        margin: 0 auto;
+        box-shadow: 0px 20px 75px rgba(200, 200, 200, 0.5);
       }
     }
   }
