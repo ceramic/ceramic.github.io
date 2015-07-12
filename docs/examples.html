@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+  Examples &ndash; Ceramic
+</title>
+    <link rel="stylesheet" href="static/style.css"/>
+    
+  <link rel="stylesheet" href="static/highlight.css"/>
+  <script src="static/highlight.js"></script>
+
+  </head>
+  <body>
+    
+  <h1 class="doc-title">Ceramic » Examples</h1>
+  <article>
+    <aside>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+    </aside>
+    <main class="codex-section">
+      <p></p><p>The following examples illustrate the structure of a Ceramic application.</p><h1 id="9-marked">Marked</h1><a href="https://github.com/ceramic/marked/">Marked</a> is a simple Markdown
+editor and previewer, designed to showcase the basic set of Ceramic's
+functionality. This is a breakdown of its implementation.<h2 id="system-definition">System Definition</h2><p></p><p>This is where we start: we define the project's metadata, depend on Lucerne (for
+the web app) and 3bmd for Markdown-to-HTML conversion. We also depend on a small
+extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem marked
+  :author &quot;Fernando Borretti &lt;eudoxiahp@gmail.com&gt;&quot;
+  :maintainer &quot;Fernando Borretti &lt;eudoxiahp@gmail.com&gt;&quot;
+  :license &quot;MIT&quot;
+  :version &quot;0.1&quot;
+  :homepage &quot;https://github.com/ceramic/marked&quot;
+  :bug-tracker &quot;https://github.com/ceramic/marked/issues&quot;
+  :source-control (:git &quot;git@github.com:ceramic/marked.git&quot;)
+  :depends-on (:ceramic
+               :lucerne
+               :3bmd
+               :3bmd-ext-code-blocks)
+  :components ((:module &quot;assets&quot;
+                :components
+                ((:module &quot;css&quot;
+                  :components
+                  ((:static-file &quot;style.css&quot;)))
+                 (:module &quot;js&quot;
+                  :components
+                  ((:static-file &quot;scripts.js&quot;)))))
+               (:module &quot;src&quot;
+                :serial t
+                :components
+                ((:file &quot;marked&quot;))))
+  :description &quot;A Markdown editor example with Ceramic.&quot;
+  :long-description
+  #.(uiop:read-file-string
+     (uiop:subpathname *load-pathname* &quot;README.md&quot;))
+  :in-order-to ((test-op (test-op marked-test))))
+</code></pre><h2 id="server">Server</h2><p></p><p>First, the package definition. We use all of <code>:lucerne</code> to make the views
+easier, import <code>define-resources</code> and <code>resource-directory</code> from
+<code>:ceramic.resource</code> and export both the <code>app</code> object and the <code>start-app</code>
+function.</p><p>Note how at the end we insert a call to <code>annot:enable-annot-syntax</code>. This
+allows us to use the <code>@route</code> reader macro.</p><pre><code class="lisp">(in-package :cl-user)
+(defpackage marked
+  (:use :cl :lucerne)
+  (:import-from :ceramic.resource
+                :define-resources
+                :resource-directory)
+  (:export :app
+           :start-app)
+  (:documentation &quot;Main marked code.&quot;))
+(in-package :marked)
+(annot:enable-annot-syntax)
+</code></pre><p></p><p>Now we define the app's resources, by associating the <code>assets</code> tag with the
+<code>assets/</code> directory and, similarly, associating <code>templates</code> with
+<code>templates/</code>.</p><p>Then, we define the app, and tell it to use the static-file middleware to serve
+files in the <code>assets</code> directory on the <code>/static/</code> path.</p><pre><code class="lisp">;;; App resources
+
+(define-resources :marked ()
+  (assets #p&quot;assets/&quot;)
+  (templates #p&quot;templates/&quot;))
+
+;;; App
+
+(defapp app
+  :middlewares ((clack.middleware.static:&lt;clack-middleware-static&gt;
+                 :root (resource-directory 'assets)
+                 :path &quot;/static/&quot;)))
+</code></pre><p></p><p>Next, templates: We tell Djula to look for them in the directory in the
+<code>templates</code> tag, and tell it to compile the &quot;index.html&quot; template it finds
+there.</p><pre><code class="lisp">;;; Templates
+
+(djula:add-template-directory
+ (resource-directory 'templates))
+
+(defparameter +index+
+  (djula:compile-template* &quot;index.html&quot;))
+</code></pre><p></p><p>And now, the actual views: We define a convenience <code>markdown-to-html</code> function
+that does precisely what it says on the tin. Then, two views: The index view
+that shows the editor/previewer template and the API view that takes a Markdown
+string and responds with the corresponding HTML.</p><pre><code class="lisp">;;; Views
+
+(defun markdown-to-html (string)
+  (with-output-to-string (stream)
+    (let ((3bmd-code-blocks:*code-blocks* t)
+          (3bmd:*smart-quotes* t))
+      (3bmd:parse-string-and-print-to-stream string stream))))
+
+@route app &quot;/&quot;
+(defview index ()
+  &quot;The index page displays the editor.&quot;
+  (render-template (+index+)))
+
+@route app (:post &quot;/to-html&quot;)
+(defview to-html ()
+  &quot;This part of the API receives Markdown and emits HTML&quot;
+  (with-params (markdown)
+    (respond (markdown-to-html markdown))))
+</code></pre><p></p><p>Finally, some startup code:</p><pre><code class="lisp">;;; Startup
+
+(defvar *port* 40000)
+
+(defun start-app ()
+  (start app :port *port*))
+
+(ceramic:define-entry-point :marked ()
+  (let ((window (ceramic:make-window :url (format nil &quot;http://localhost:~D/&quot; *port*))))
+    (ceramic:show-window window)
+    (start-app)))
+</code></pre><h2 id="templates">Templates</h2><p></p><p>As usual, we begin with a <code>base.html</code> template that other templates inherit
+from:</p><pre><code class="djula">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+  {% include &quot;includes/head.html&quot; %}
+  &lt;body&gt;
+    {% block content %}{% endblock %}
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><p></p><p>In <code>includes/head.html</code>, we just load our assets:</p><pre><code class="djula">&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+  &lt;title&gt;Marked&lt;/title&gt;
+  &lt;link href=&quot;/static/css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
+  &lt;script src=&quot;/static/js/scripts.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre><p></p><p>And finally, the <code>index.html</code> template, which holds the editor and previewer
+panes:</p><pre><code class="djula">{% extends &quot;base.html&quot; %}
+
+{% block content %}
+  &lt;div id=&quot;input-container&quot;&gt;
+    &lt;textarea id=&quot;input&quot;&gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+  &lt;div id=&quot;output-container&quot;&gt;
+    &lt;div id=&quot;output&quot;&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+{% endblock %}
+</code></pre><h2 id="javascript">JavaScript</h2><p></p><p>We'll just write some awful JavaScript that checks periodically for changes to
+the input <code>textarea</code>, and if it finds them, sends them to the server and
+inserts the result into the output pane.</p><pre><code class="javascript">/* JavaScript */
+
+function textareaHasInput(node) {
+  return (node.value != null &amp;&amp; node.value != &quot;&quot;);
+};
+
+var last_text = null;
+
+function changed(text) {
+  return !(last_text != null &amp;&amp; text == last_text);
+}
+
+function postMarkdown() {
+  // When the Markdown changes, POST it to the server and get the resulting HTML
+  var input = document.getElementById(&quot;input&quot;);
+  if(textareaHasInput(input) &amp;&amp; changed(input.value)) {
+    console.log(&quot;Sending input&quot;);
+    last_text = input.value;
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function() {
+      var output = document.getElementById(&quot;output&quot;);
+      const new_html = req.responseText;
+      if(output.innerHTML != new_html) {
+        output.innerHTML = new_html;
+      }
+    };
+    req.open(&quot;POST&quot;, &quot;/to-html&quot;, true);
+    req.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);
+    req.send(&quot;markdown=&quot; + encodeURIComponent(input.value));
+  }
+};
+
+document.addEventListener(&quot;DOMContentLoaded&quot;, function(event) {
+  setInterval(postMarkdown, 500);
+  postMarkdown();
+});
+</code></pre><h2 id="style">Style</h2><p></p><p>First, the general layout:</p><pre><code class="css">@charset &quot;utf-8&quot;;
+
+/* Make the textarea and output occupy two columns on the entire screen. */
+
+body {
+    margin: 0 auto;
+}
+
+#input-container, #output-container {
+    width: 50%;
+    height: 100vh;
+    margin: 0;
+    border: 0;
+    float: left;
+}
+
+/* Give both input and output a gap separating them from their containers */
+
+#input, #output {
+    display: block; /* &lt;textarea&gt; needs this */
+    width: 90%;
+    margin: 0 auto;
+    border: 0;
+    padding: 0;
+}
+
+#input {
+    height: 100%;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, monospace;
+    resize: none;
+}
+</code></pre><p></p><p>We then style the input <code>textarea</code>: Here's where we create the black border
+separating the two panes, and add some padding.</p><pre><code class="css">/* Input textarea style */
+
+#input-container {
+    border-right: 1px solid black;
+    box-sizing: border-box;
+    padding: 25px;
+}
+</code></pre><p></p><p>The next section is just styling the output so it looks good:</p><pre><code class="css">/* Output style */
+
+a:link, a:visited, a:hover, a:active {
+    color: #4183C4;
+    text-decoration: none;
+}
+
+#output-container {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+}
+
+code {
+    font-size: 90%;
+    font-family: Consolas, Menlo, Monaco, Lucida Console, monospace;
+}
+
+pre {
+    padding: 5px;
+    background-color: #F8F8F8;
+    border: 1px solid #CCC;
+    width: 80%;
+    margin: 0 auto;
+    border-radius: 3px;
+}
+
+pre code {
+    margin: 0;
+    padding: 0;
+}
+
+blockquote {
+    font-style: italic;
+    width: 80%;
+}
+</code></pre>
+    </main>
+  </article>
+  <footer>
+    <div class="info">
+      Created with <a href="https://github.com/CommonDoc/codex">Codex</a>.
+    </div>
+  </footer>
+  <script>
+   HighlightLisp.highlight_auto();
+  </script>
+
+  </body>
+</html>

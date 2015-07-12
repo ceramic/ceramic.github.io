@@ -18,7 +18,7 @@
   <h1 class="doc-title">Ceramic » Tutorial</h1>
   <article>
     <aside>
-      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
     </aside>
     <main class="codex-section">
       <h1 id="installation">Installation</h1><p></p><p>Until Ceramic is available from Quicklisp, you have to clone it to your
@@ -83,14 +83,20 @@ directory. In development, you reference a <i>resource tag</i> and get the pathn
 to that source directory. When bundling the app, resource directories are
 copied, and in production, when you reference a tag, you get the pathname to the
 copied directory inside the app's bundle.</p><p>If you look at the source of the Marked application, you'll see resources are
-defined like this:</p><pre><code class="lisp">(define-resources :marked ()(assets #p&quot;assets/&quot;)(templates #p&quot;templates/&quot;))</code></pre><p></p><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
+defined like this:</p><pre><code class="lisp">(define-resources :marked ()
+  (assets #p&quot;assets/&quot;)
+  (templates #p&quot;templates/&quot;))
+</code></pre><p></p><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
 in the directory of the <code>:marked</code> system, and the <code>templates</code> tag is
 associated to the <code>templates/</code> directory. You can associate tags to
 directories at any depth.</p><p>We the <code>resource-directory</code> function to get the directory associated to a
 tag. In Marked we use this to set the directory where templates are stored so
 Djula can access them:</p><pre><code class="lisp">(djula:add-template-directory
- (resource-directory 'templates))(defparameter +index+
-  (djula:compile-template* &quot;index.html&quot;))</code></pre><p></p><p>A useful function – to prevent you from calling <code>merge-pathnames</code> all
+ (resource-directory 'templates))
+
+(defparameter +index+
+  (djula:compile-template* &quot;index.html&quot;))
+</code></pre><p></p><p>A useful function – to prevent you from calling <code>merge-pathnames</code> all
 the time – is the <code>resource</code> function: This takes a tag and a
 pathname, and is the equivalent of adding that pathname to the end of the
 directory associated to that tag:</p><pre><code class="lisp">(resource 'assets #p&quot;css/style.css&quot;)

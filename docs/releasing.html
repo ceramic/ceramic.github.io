@@ -18,7 +18,7 @@
   <h1 class="doc-title">Ceramic » Releasing</h1>
   <article>
     <aside>
-      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
     </aside>
     <main class="codex-section">
       <h1 id="bundler">Bundler</h1><p></p><p>Ceramic applications can be compiled to native executables. This is done through
@@ -68,7 +68,7 @@ resource directory in the release.</p><p>For instance, assuming an application n
 
 (resource 'web-assets #p&quot;css/style.css&quot;)
 ;; my-app/resources/web-assets/css/style.css
-</code></pre><h2 id="14-api">API</h2><div class="codex-doc-node codex-operator codex-macro"><code class="codex-name">define-resources</code><code class="codex-lambda-list">(system-name nil &amp;rest pairs)</code><div class="codex-docstring">Define resource tags for a system.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource-directory</code><code class="codex-lambda-list">(resource-tag)</code><div class="codex-docstring">Return the directory associated to a resource tag.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource</code><code class="codex-lambda-list">(resource-tag pathname)</code><div class="codex-docstring">Return the pathname of a resource relative to the directory of a resource
+</code></pre><h2 id="19-api">API</h2><div class="codex-doc-node codex-operator codex-macro"><code class="codex-name">define-resources</code><code class="codex-lambda-list">(system-name nil &amp;rest pairs)</code><div class="codex-docstring">Define resource tags for a system.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource-directory</code><code class="codex-lambda-list">(resource-tag)</code><div class="codex-docstring">Return the directory associated to a resource tag.</div></div><div class="codex-doc-node codex-operator codex-function"><code class="codex-name">resource</code><code class="codex-lambda-list">(resource-tag pathname)</code><div class="codex-docstring">Return the pathname of a resource relative to the directory of a resource
 tag.</div></div>
     </main>
   </article>
