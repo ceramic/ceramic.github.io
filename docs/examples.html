@@ -21,18 +21,18 @@
       <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
     </aside>
     <main class="codex-section">
-      <p></p><p>The following examples illustrate the structure of a Ceramic application.</p><h1 id="9-marked">Marked</h1><a href="https://github.com/ceramic/marked/">Marked</a> is a simple Markdown
+      <p></p><p>The following examples illustrate the structure of a Ceramic application.</p><h1 id="9-markedit">MarkEdit</h1><a href="https://github.com/ceramic/markedit/">MarkEdit</a> is a simple Markdown
 editor and previewer, designed to showcase the basic set of Ceramic's
 functionality. This is a breakdown of its implementation.<h2 id="system-definition">System Definition</h2><p></p><p>This is where we start: we define the project's metadata, depend on Lucerne (for
 the web app) and 3bmd for Markdown-to-HTML conversion. We also depend on a small
-extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem marked
+extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem markedit
   :author &quot;Fernando Borretti &lt;eudoxiahp@gmail.com&gt;&quot;
   :maintainer &quot;Fernando Borretti &lt;eudoxiahp@gmail.com&gt;&quot;
   :license &quot;MIT&quot;
   :version &quot;0.1&quot;
-  :homepage &quot;https://github.com/ceramic/marked&quot;
-  :bug-tracker &quot;https://github.com/ceramic/marked/issues&quot;
-  :source-control (:git &quot;git@github.com:ceramic/marked.git&quot;)
+  :homepage &quot;https://github.com/ceramic/markedit&quot;
+  :bug-tracker &quot;https://github.com/ceramic/markedit/issues&quot;
+  :source-control (:git &quot;git@github.com:ceramic/markedit.git&quot;)
   :depends-on (:ceramic
                :lucerne
                :3bmd
@@ -48,37 +48,36 @@ extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem ma
                (:module &quot;src&quot;
                 :serial t
                 :components
-                ((:file &quot;marked&quot;))))
+                ((:file &quot;markedit&quot;))))
   :description &quot;A Markdown editor example with Ceramic.&quot;
   :long-description
   #.(uiop:read-file-string
      (uiop:subpathname *load-pathname* &quot;README.md&quot;))
-  :in-order-to ((test-op (test-op marked-test))))
+  :in-order-to ((test-op (test-op markedit-test))))
 </code></pre><h2 id="server">Server</h2><p></p><p>First, the package definition. We use all of <code>:lucerne</code> to make the views
 easier, import <code>define-resources</code> and <code>resource-directory</code> from
 <code>:ceramic.resource</code> and export both the <code>app</code> object and the <code>start-app</code>
 function.</p><p>Note how at the end we insert a call to <code>annot:enable-annot-syntax</code>. This
 allows us to use the <code>@route</code> reader macro.</p><pre><code class="lisp">(in-package :cl-user)
-(defpackage marked
+(defpackage markedit
   (:use :cl :lucerne)
   (:import-from :ceramic.resource
                 :define-resources
                 :resource-directory)
   (:export :app
            :start-app)
-  (:documentation &quot;Main marked code.&quot;))
-(in-package :marked)
+  (:documentation &quot;Main MarkEdit code.&quot;))
+(in-package :markedit)
 (annot:enable-annot-syntax)
 </code></pre><p></p><p>Now we define the app's resources, by associating the <code>assets</code> tag with the
 <code>assets/</code> directory and, similarly, associating <code>templates</code> with
-<code>templates/</code>.</p><p>Then, we define the app, and tell it to use the static-file middleware to serve
-files in the <code>assets</code> directory on the <code>/static/</code> path.</p><pre><code class="lisp">;;; App resources
+<code>templates/</code>.</p><pre><code class="lisp">;;; App resources
 
-(define-resources :marked ()
+(define-resources :markedit ()
   (assets #p&quot;assets/&quot;)
   (templates #p&quot;templates/&quot;))
-
-;;; App
+</code></pre><p></p><p>Then, we define the app, and tell it to use the static-file middleware to serve
+files in the <code>assets</code> directory on the <code>/static/</code> path.</p><pre><code class="lisp">;;; App
 
 (defapp app
   :middlewares ((clack.middleware.static:&lt;clack-middleware-static&gt;
@@ -121,7 +120,7 @@ string and responds with the corresponding HTML.</p><pre><code class="lisp">;;; 
 (defun start-app ()
   (start app :port *port*))
 
-(ceramic:define-entry-point :marked ()
+(ceramic:define-entry-point :markedit ()
   (let ((window (ceramic:make-window :url (format nil &quot;http://localhost:~D/&quot; *port*))))
     (ceramic:show-window window)
     (start-app)))
@@ -137,7 +136,7 @@ from:</p><pre><code class="djula">&lt;!DOCTYPE html&gt;
   &lt;meta charset=&quot;utf-8&quot;&gt;
   &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-  &lt;title&gt;Marked&lt;/title&gt;
+  &lt;title&gt;MarkEdit&lt;/title&gt;
   &lt;link href=&quot;/static/css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
   &lt;script src=&quot;/static/js/scripts.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;

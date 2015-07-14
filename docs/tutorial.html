@@ -72,25 +72,25 @@ archive file. All you have to do is call the <code>bundle</code> function:</p><p
 executable. Extract it and run the app. A window should pop up and you should
 see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world #p&quot;build/bundle.tar&quot;)</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p></p><p>Of course, a web application isn't just routes, you also have to bundle all
 sorts of assets. Ceramic takes care of that for you.</p><p>For this example, we'll use
-<a href="https://github.com/ceramic/marked/">Marked</a>: This is a simple
+<a href="https://github.com/ceramic/markedit/">MarkEdit</a>: This is a simple
 Markdown editor and previewer. On startup, you get a window with two panes: On
 the left pane, you type Markdown code, and on the left, you get the rendered
-HTML. You can see it in action below:<img src="marked.png"/></p><p>To test the app locally, just run <code>(marked:start-app)</code>. To deploy the app, we
-run the bundler command:</p><pre><code class="lisp">(ceramic.bundler:bundle :marked)</code></pre><p></p><p>Extract the app and run it: You'll see the window pop up and you can start
+HTML. You can see it in action below:<img src="markedit.png"/></p><p>To test the app locally, just run <code>(markedit:start-app)</code>. To deploy the app, we
+run the bundler command:</p><pre><code class="lisp">(ceramic.bundler:bundle :markedit)</code></pre><p></p><p>Extract the app and run it: You'll see the window pop up and you can start
 editing. Close it and the app shuts down.</p><p>The way Ceramic handles resources is by associating tags (such as <code>web-assets</code>
 or <code>data-files</code>) to certain pathnames relative to the system's source
 directory. In development, you reference a <i>resource tag</i> and get the pathname
 to that source directory. When bundling the app, resource directories are
 copied, and in production, when you reference a tag, you get the pathname to the
-copied directory inside the app's bundle.</p><p>If you look at the source of the Marked application, you'll see resources are
-defined like this:</p><pre><code class="lisp">(define-resources :marked ()
+copied directory inside the app's bundle.</p><p>If you look at the source of the MarkEdit application, you'll see resources are
+defined like this:</p><pre><code class="lisp">(define-resources :markedit ()
   (assets #p&quot;assets/&quot;)
   (templates #p&quot;templates/&quot;))
 </code></pre><p></p><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
-in the directory of the <code>:marked</code> system, and the <code>templates</code> tag is
+in the directory of the <code>:markedit</code> system, and the <code>templates</code> tag is
 associated to the <code>templates/</code> directory. You can associate tags to
 directories at any depth.</p><p>We the <code>resource-directory</code> function to get the directory associated to a
-tag. In Marked we use this to set the directory where templates are stored so
+tag. In MarkEdit we use this to set the directory where templates are stored so
 Djula can access them:</p><pre><code class="lisp">(djula:add-template-directory
  (resource-directory 'templates))
 

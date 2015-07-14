@@ -9,7 +9,7 @@ links:
   docs: /docs/introduction.html
   tutorial: /docs/tutorial.html
   api: /docs/api-reference.html
-  marked: https://github.com/ceramic/marked/
+  markedit: https://github.com/ceramic/markedit/
   repo: https://github.com/ceramic/ceramic
   org: https://github.com/ceramic
   issues: https://github.com/ceramic/ceramic/issues
