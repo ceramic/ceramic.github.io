@@ -11,14 +11,42 @@
     
   <link rel="stylesheet" href="static/highlight.css"/>
   <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-section="tutorial"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-section="tutorial"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-section="tutorial"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
 
   </head>
   <body>
     
   <h1 class="doc-title">Ceramic » Tutorial</h1>
-  <article>
+  <article id="article" data-section="tutorial">
     <aside>
-      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+      <ol class="toc"><li><a href="introduction.html" data-section="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-section="features">Features</a></li><li><a href="introduction.html#intro-examples" data-section="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-section="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-section="tutorial">Tutorial</a><ol><li><a href="tutorial.html#installation" data-section="installation">Installation</a></li><li><a href="tutorial.html#getting-started" data-section="getting-started">Getting Started</a></li><li><a href="tutorial.html#building-a-desktop-web-app" data-section="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="tutorial.html#shipping" data-section="shipping">Shipping</a></li><li><a href="tutorial.html#more-complex-apps" data-section="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-section="examples">Examples</a><ol><li><a href="9-markedit.html" data-section="9-markedit">MarkEdit</a><ol><li><a href="system-definition.html" data-section="system-definition">System Definition</a></li><li><a href="server.html" data-section="server">Server</a></li><li><a href="templates.html" data-section="templates">Templates</a></li><li><a href="javascript.html" data-section="javascript">JavaScript</a></li><li><a href="style.html" data-section="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-section="releasing">Releasing</a><ol><li><a href="bundler.html" data-section="bundler">Bundler</a><ol><li><a href="api.html" data-section="api">API</a></li></ol></li><li><a href="resources.html" data-section="resources">Resources</a><ol><li><a href="19-api.html" data-section="19-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-section="api-reference">API Reference</a><ol><li><a href="general.html" data-section="general">General</a></li><li><a href="browser-windows.html" data-section="browser-windows">Browser Windows</a></li><li><a href="23-resources.html" data-section="23-resources">Resources</a></li><li><a href="24-releasing.html" data-section="24-releasing">Releasing</a></li></ol></li></ol>
     </aside>
     <main class="codex-section">
       <h1 id="installation">Installation</h1><p></p><p>Until Ceramic is available from Quicklisp, you have to clone it to your
@@ -70,7 +98,7 @@ and compile all the required resources -- into a bundle, which is basically an
 archive file. All you have to do is call the <code>bundle</code> function:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world)</code></pre><p></p><p>And that's it. Head over to the directory of the hello world example,
 <code>examples/hello-world/</code>, you'll see a <code>.tar</code> file with the app's
 executable. Extract it and run the app. A window should pop up and you should
-see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world #p&quot;build/bundle.tar&quot;)</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p></p><p>Of course, a web application isn't just routes, you also have to bundle all
+see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world :bundle-pathname #p&quot;build/bundle.tar&quot;)</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p></p><p>Of course, a web application isn't just routes, you also have to bundle all
 sorts of assets. Ceramic takes care of that for you.</p><p>For this example, we'll use
 <a href="https://github.com/ceramic/markedit/">MarkEdit</a>: This is a simple
 Markdown editor and previewer. On startup, you get a window with two panes: On

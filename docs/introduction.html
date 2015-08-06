@@ -11,14 +11,42 @@
     
   <link rel="stylesheet" href="static/highlight.css"/>
   <script src="static/highlight.js"></script>
+  <style>
+   /* Highlight the current top-level TOC item, and hide the TOC of all other items */
+
+   .toc a[data-section="introduction"] {
+       color: #AD3108;
+   }
+
+   .toc ol {
+       display: none;
+   }
+
+   .toc > ol {
+       display: block;
+   }
+
+   .toc li a[data-section="introduction"] + ol {
+       display: block;
+   }
+
+   .toc li a[data-section="introduction"] + ol li {
+       font-size: 16px;
+       margin: 0 10px;
+   }
+
+   .toc li a[active] + ol li:first-child {
+       margin-top: 5px;
+   }
+  </style>
 
   </head>
   <body>
     
   <h1 class="doc-title">Ceramic » Introduction</h1>
-  <article>
+  <article id="article" data-section="introduction">
     <aside>
-      <ol class="toc"><li><a href="introduction.html">Introduction</a></li><li><a href="tutorial.html">Tutorial</a></li><li><a href="examples.html">Examples</a></li><li><a href="releasing.html">Releasing</a></li><li><a href="api-reference.html">API Reference</a></li></ol>
+      <ol class="toc"><li><a href="introduction.html" data-section="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-section="features">Features</a></li><li><a href="introduction.html#intro-examples" data-section="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-section="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-section="tutorial">Tutorial</a><ol><li><a href="installation.html" data-section="installation">Installation</a></li><li><a href="getting-started.html" data-section="getting-started">Getting Started</a></li><li><a href="building-a-desktop-web-app.html" data-section="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="shipping.html" data-section="shipping">Shipping</a></li><li><a href="more-complex-apps.html" data-section="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-section="examples">Examples</a><ol><li><a href="9-markedit.html" data-section="9-markedit">MarkEdit</a><ol><li><a href="system-definition.html" data-section="system-definition">System Definition</a></li><li><a href="server.html" data-section="server">Server</a></li><li><a href="templates.html" data-section="templates">Templates</a></li><li><a href="javascript.html" data-section="javascript">JavaScript</a></li><li><a href="style.html" data-section="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-section="releasing">Releasing</a><ol><li><a href="bundler.html" data-section="bundler">Bundler</a><ol><li><a href="api.html" data-section="api">API</a></li></ol></li><li><a href="resources.html" data-section="resources">Resources</a><ol><li><a href="19-api.html" data-section="19-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-section="api-reference">API Reference</a><ol><li><a href="general.html" data-section="general">General</a></li><li><a href="browser-windows.html" data-section="browser-windows">Browser Windows</a></li><li><a href="23-resources.html" data-section="23-resources">Resources</a></li><li><a href="24-releasing.html" data-section="24-releasing">Releasing</a></li></ol></li></ol>
     </aside>
     <main class="codex-section">
       <p></p><p>Ceramic is a library for creating desktop applications with web technologies and
