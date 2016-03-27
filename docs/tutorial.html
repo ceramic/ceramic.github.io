@@ -14,7 +14,7 @@
   <style>
    /* Highlight the current top-level TOC item, and hide the TOC of all other items */
 
-   .toc a[data-section="tutorial"] {
+   .toc a[data-node="tutorial"] {
        color: #AD3108;
    }
 
@@ -26,11 +26,11 @@
        display: block;
    }
 
-   .toc li a[data-section="tutorial"] + ol {
+   .toc li a[data-node="tutorial"] + ol {
        display: block;
    }
 
-   .toc li a[data-section="tutorial"] + ol li {
+   .toc li a[data-node="tutorial"] + ol li {
        font-size: 16px;
        margin: 0 10px;
    }
@@ -46,14 +46,14 @@
   <h1 class="doc-title">Ceramic » Tutorial</h1>
   <article id="article" data-section="tutorial">
     <aside>
-      <ol class="toc"><li><a href="introduction.html" data-section="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-section="features">Features</a></li><li><a href="introduction.html#intro-examples" data-section="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-section="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-section="tutorial">Tutorial</a><ol><li><a href="tutorial.html#installation" data-section="installation">Installation</a></li><li><a href="tutorial.html#getting-started" data-section="getting-started">Getting Started</a></li><li><a href="tutorial.html#building-a-desktop-web-app" data-section="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="tutorial.html#shipping" data-section="shipping">Shipping</a></li><li><a href="tutorial.html#more-complex-apps" data-section="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-section="examples">Examples</a><ol><li><a href="9-markedit.html" data-section="9-markedit">MarkEdit</a><ol><li><a href="system-definition.html" data-section="system-definition">System Definition</a></li><li><a href="server.html" data-section="server">Server</a></li><li><a href="templates.html" data-section="templates">Templates</a></li><li><a href="javascript.html" data-section="javascript">JavaScript</a></li><li><a href="style.html" data-section="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-section="releasing">Releasing</a><ol><li><a href="bundler.html" data-section="bundler">Bundler</a><ol><li><a href="api.html" data-section="api">API</a></li></ol></li><li><a href="resources.html" data-section="resources">Resources</a><ol><li><a href="19-api.html" data-section="19-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-section="api-reference">API Reference</a><ol><li><a href="general.html" data-section="general">General</a></li><li><a href="browser-windows.html" data-section="browser-windows">Browser Windows</a></li><li><a href="23-resources.html" data-section="23-resources">Resources</a></li><li><a href="24-releasing.html" data-section="24-releasing">Releasing</a></li></ol></li></ol>
+      <ol class="toc"><li><a href="introduction.html" data-node="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-node="features">Features</a></li><li><a href="introduction.html#intro-examples" data-node="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-node="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-node="tutorial">Tutorial</a><ol><li><a href="tutorial.html#installation" data-node="installation">Installation</a></li><li><a href="tutorial.html#getting-started" data-node="getting-started">Getting Started</a></li><li><a href="tutorial.html#building-a-desktop-web-app" data-node="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="tutorial.html#shipping" data-node="shipping">Shipping</a></li><li><a href="tutorial.html#more-complex-apps" data-node="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-node="examples">Examples</a><ol><li><a href="0-markedit.html" data-node="0-markedit">MarkEdit</a><ol><li><a href="system-definition.html" data-node="system-definition">System Definition</a></li><li><a href="server.html" data-node="server">Server</a></li><li><a href="templates.html" data-node="templates">Templates</a></li><li><a href="javascript.html" data-node="javascript">JavaScript</a></li><li><a href="style.html" data-node="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-node="releasing">Releasing</a><ol><li><a href="bundler.html" data-node="bundler">Bundler</a><ol><li><a href="api.html" data-node="api">API</a></li></ol></li><li><a href="resources.html" data-node="resources">Resources</a><ol><li><a href="1-api.html" data-node="1-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-node="api-reference">API Reference</a><ol><li><a href="core.html" data-node="core">Core</a></li><li><a href="setup.html" data-node="setup">Setup</a></li><li><a href="windows.html" data-node="windows">Windows</a></li><li><a href="2-bundler.html" data-node="2-bundler">Bundler</a></li><li><a href="3-resources.html" data-node="3-resources">Resources</a></li><li><a href="driver.html" data-node="driver">Driver</a></li></ol></li></ol>
     </aside>
     <main class="codex-section">
-      <h1 id="installation">Installation</h1><p></p><p>Until Ceramic is available from Quicklisp, you have to clone it to your
+      <h1 id="installation">Installation</h1><p>Until Ceramic is available from Quicklisp, you have to clone it to your
 Quicklisp <code>local-projects</code> directory. Assuming your Quicklisp directory is
-<code>~/quicklisp</code>:</p><pre><code class="shell">git clone https://github.com/ceramic/ceramic.git ~/quicklisp/local-projects</code></pre><p></p><p>Then, either restart Lisp or run <code>(ql:register-local-projects)</code>.</p><h1 id="getting-started">Getting Started</h1><p></p><p>First, we need to load Ceramic. We do this with Quicklisp:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :ceramic)</code></pre><p></p><p>Ceramic needs to download some things to run, so let's do that:</p><pre><code class="lisp">CL-USER&gt; (ceramic:setup)</code></pre><p></p><p>Now we're all set up. Let's start creating some browser windows. Run the
-following code:</p><pre><code class="lisp">;; Tell Ceramic we're going to be prototyping
-(ceramic:interactive)
+<code>~/quicklisp</code>:</p><pre><code class="shell">git clone https://github.com/ceramic/ceramic.git ~/quicklisp/local-projects</code></pre><p>Then, either restart Lisp or run <code>(ql:register-local-projects)</code>.</p><h1 id="getting-started">Getting Started</h1><p>First, we need to load Ceramic. We do this with Quicklisp:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :ceramic)</code></pre><p>Ceramic needs to download some things to run, so let's do that:</p><pre><code class="lisp">CL-USER&gt; (ceramic:setup)</code></pre><p>Now we're all set up. Let's start creating some browser windows. Run the
+following code:</p><pre><code class="lisp">;; Start the underlying Electron process
+(ceramic:start)
 
 ;; Create a browser window
 (defvar window (ceramic:make-window :url &quot;https://www.google.com/&quot;
@@ -61,10 +61,11 @@ following code:</p><pre><code class="lisp">;; Tell Ceramic we're going to be pro
                                     :height 600))
 
 ;; Show it
-(ceramic:show-window window)</code></pre><p></p><p>An 800-by-600 pixel browser window pointed at Google should pop up.</p><h1 id="building-a-desktop-web-app">Building a Desktop Web App</h1><p></p><p>With Ceramic, we can write a web application – using
+(ceramic:show window)
+</code></pre><p>An 800-by-600 pixel browser window pointed at Google should pop up.</p><h1 id="building-a-desktop-web-app">Building a Desktop Web App</h1><p>With Ceramic, we can write a web application – using
 <a href="http://clacklisp.org/">Clack</a>– and create windows that use
 it.</p><p>We'll be using <a href="http://eudoxia.me/lucerne/">Lucerne</a>, a web framework
-built on Clack to write the web app, and Ceramic to use it as a desktop app.</p><p>First, load Lucerne:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :lucerne)</code></pre><p></p><p>Then, tell Ceramic we're going to use the interactive mode:</p><pre><code class="lisp">CL-USER&gt; (ceramic:interactive)</code></pre><p></p><p>Now, let's create a basic application. The source code and system definition of
+built on Clack to write the web app, and Ceramic to use it as a desktop app.</p><p>First, load Lucerne:</p><pre><code class="lisp">CL-USER&gt; (ql:quickload :lucerne)</code></pre><p>Then, start the Electron process,</p><pre><code class="lisp">CL-USER&gt; (ceramic:start)</code></pre><p>Now, let's create a basic application. The source code and system definition of
 this app is in the <code>examples/hello-world/</code> directory of the Ceramic source
 code, so you can play around with it.</p><pre><code class="lisp">(in-package :cl-user)
 (defpackage ceramic-hello-world
@@ -88,23 +89,27 @@ code, so you can play around with it.</p><pre><code class="lisp">(in-package :cl
 (defun run ()
   (setf *window*
         (ceramic:make-window :url (format nil &quot;http://localhost:~D/&quot; *port*)))
-  (ceramic:show-window *window*)
+  (ceramic:show *window*)
   (start app :port *port*))
 
 (ceramic:define-entry-point :ceramic-hello-world ()
   (run))
-</code></pre><p></p><p>Don't worry about that <code>define-entry-point</code> macro, we'll get to that later.</p><p>Calling <code>run</code>, a browser window with the text &quot;Hello, world!&quot; should pop up.</p><h1 id="shipping">Shipping</h1><p></p><p>Ceramic can compile an application -- both produce an executable of the server
+
+</code></pre><p>Don't worry about that <code>define-entry-point</code> macro, we'll get to that later.</p><p>Calling <code>run</code>, a browser window with the text &quot;Hello, world!&quot; should pop up.</p><h1 id="shipping">Shipping</h1><p>Ceramic can compile an application -- both produce an executable of the server
 and compile all the required resources -- into a bundle, which is basically an
-archive file. All you have to do is call the <code>bundle</code> function:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world)</code></pre><p></p><p>And that's it. Head over to the directory of the hello world example,
+archive file. All you have to do is call the <code>bundle</code> function:</p><pre><code class="lisp">(ceramic:bundle :ceramic-hello-world)
+</code></pre><p>And that's it. Head over to the directory of the hello world example,
 <code>examples/hello-world/</code>, you'll see a <code>.tar</code> file with the app's
 executable. Extract it and run the app. A window should pop up and you should
-see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic.bundler:bundle :ceramic-hello-world :bundle-pathname #p&quot;build/bundle.tar&quot;)</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p></p><p>Of course, a web application isn't just routes, you also have to bundle all
+see the 'Hello, World!' text.</p><p>You can also tell it where to store the bundle through an optional argument:</p><pre><code class="lisp">(ceramic:bundle :ceramic-hello-world :bundle-pathname #p&quot;build/bundle.tar&quot;)
+</code></pre><h1 id="more-complex-apps">More Complex Apps</h1><p>Of course, a web application isn't just routes, you also have to bundle all
 sorts of assets. Ceramic takes care of that for you.</p><p>For this example, we'll use
 <a href="https://github.com/ceramic/markedit/">MarkEdit</a>: This is a simple
 Markdown editor and previewer. On startup, you get a window with two panes: On
 the left pane, you type Markdown code, and on the left, you get the rendered
 HTML. You can see it in action below:<img src="markedit.png"/></p><p>To test the app locally, just run <code>(markedit:start-app)</code>. To deploy the app, we
-run the bundler command:</p><pre><code class="lisp">(ceramic.bundler:bundle :markedit)</code></pre><p></p><p>Extract the app and run it: You'll see the window pop up and you can start
+run the bundler command:</p><pre><code class="lisp">(ceramic:bundle :markedit)
+</code></pre><p>Extract the app and run it: You'll see the window pop up and you can start
 editing. Close it and the app shuts down.</p><p>The way Ceramic handles resources is by associating tags (such as <code>web-assets</code>
 or <code>data-files</code>) to certain pathnames relative to the system's source
 directory. In development, you reference a <i>resource tag</i> and get the pathname
@@ -114,7 +119,8 @@ copied directory inside the app's bundle.</p><p>If you look at the source of the
 defined like this:</p><pre><code class="lisp">(define-resources :markedit ()
   (assets #p&quot;assets/&quot;)
   (templates #p&quot;templates/&quot;))
-</code></pre><p></p><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
+
+</code></pre><p>What this means is the tag <code>assets</code> is associated to the <code>assets/</code> directory
 in the directory of the <code>:markedit</code> system, and the <code>templates</code> tag is
 associated to the <code>templates/</code> directory. You can associate tags to
 directories at any depth.</p><p>We the <code>resource-directory</code> function to get the directory associated to a
@@ -124,14 +130,16 @@ Djula can access them:</p><pre><code class="lisp">(djula:add-template-directory
 
 (defparameter +index+
   (djula:compile-template* &quot;index.html&quot;))
-</code></pre><p></p><p>A useful function – to prevent you from calling <code>merge-pathnames</code> all
+
+</code></pre><p>A useful function – to prevent you from calling <code>merge-pathnames</code> all
 the time – is the <code>resource</code> function: This takes a tag and a
 pathname, and is the equivalent of adding that pathname to the end of the
 directory associated to that tag:</p><pre><code class="lisp">(resource 'assets #p&quot;css/style.css&quot;)
 
 ;; is the same as
 (merge-pathnames #p&quot;css/style.css&quot;
-                 (resource-directory 'assets))</code></pre>
+                 (resource-directory 'assets))
+</code></pre>
     </main>
   </article>
   <footer>

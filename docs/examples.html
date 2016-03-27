@@ -14,7 +14,7 @@
   <style>
    /* Highlight the current top-level TOC item, and hide the TOC of all other items */
 
-   .toc a[data-section="examples"] {
+   .toc a[data-node="examples"] {
        color: #AD3108;
    }
 
@@ -26,11 +26,11 @@
        display: block;
    }
 
-   .toc li a[data-section="examples"] + ol {
+   .toc li a[data-node="examples"] + ol {
        display: block;
    }
 
-   .toc li a[data-section="examples"] + ol li {
+   .toc li a[data-node="examples"] + ol li {
        font-size: 16px;
        margin: 0 10px;
    }
@@ -46,12 +46,12 @@
   <h1 class="doc-title">Ceramic » Examples</h1>
   <article id="article" data-section="examples">
     <aside>
-      <ol class="toc"><li><a href="introduction.html" data-section="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-section="features">Features</a></li><li><a href="introduction.html#intro-examples" data-section="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-section="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-section="tutorial">Tutorial</a><ol><li><a href="tutorial.html#installation" data-section="installation">Installation</a></li><li><a href="tutorial.html#getting-started" data-section="getting-started">Getting Started</a></li><li><a href="tutorial.html#building-a-desktop-web-app" data-section="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="tutorial.html#shipping" data-section="shipping">Shipping</a></li><li><a href="tutorial.html#more-complex-apps" data-section="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-section="examples">Examples</a><ol><li><a href="examples.html#9-markedit" data-section="9-markedit">MarkEdit</a><ol><li><a href="examples.html#system-definition" data-section="system-definition">System Definition</a></li><li><a href="examples.html#server" data-section="server">Server</a></li><li><a href="examples.html#templates" data-section="templates">Templates</a></li><li><a href="examples.html#javascript" data-section="javascript">JavaScript</a></li><li><a href="examples.html#style" data-section="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-section="releasing">Releasing</a><ol><li><a href="bundler.html" data-section="bundler">Bundler</a><ol><li><a href="api.html" data-section="api">API</a></li></ol></li><li><a href="resources.html" data-section="resources">Resources</a><ol><li><a href="19-api.html" data-section="19-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-section="api-reference">API Reference</a><ol><li><a href="general.html" data-section="general">General</a></li><li><a href="browser-windows.html" data-section="browser-windows">Browser Windows</a></li><li><a href="23-resources.html" data-section="23-resources">Resources</a></li><li><a href="24-releasing.html" data-section="24-releasing">Releasing</a></li></ol></li></ol>
+      <ol class="toc"><li><a href="introduction.html" data-node="introduction">Introduction</a><ol><li><a href="introduction.html#features" data-node="features">Features</a></li><li><a href="introduction.html#intro-examples" data-node="intro-examples">Examples</a><ol><li><a href="introduction.html#markedit" data-node="markedit"><a href="https://github.com/ceramic/markedit/">MarkEdit</a></a></li></ol></li></ol></li><li><a href="tutorial.html" data-node="tutorial">Tutorial</a><ol><li><a href="tutorial.html#installation" data-node="installation">Installation</a></li><li><a href="tutorial.html#getting-started" data-node="getting-started">Getting Started</a></li><li><a href="tutorial.html#building-a-desktop-web-app" data-node="building-a-desktop-web-app">Building a Desktop Web App</a></li><li><a href="tutorial.html#shipping" data-node="shipping">Shipping</a></li><li><a href="tutorial.html#more-complex-apps" data-node="more-complex-apps">More Complex Apps</a></li></ol></li><li><a href="examples.html" data-node="examples">Examples</a><ol><li><a href="examples.html#0-markedit" data-node="0-markedit">MarkEdit</a><ol><li><a href="examples.html#system-definition" data-node="system-definition">System Definition</a></li><li><a href="examples.html#server" data-node="server">Server</a></li><li><a href="examples.html#templates" data-node="templates">Templates</a></li><li><a href="examples.html#javascript" data-node="javascript">JavaScript</a></li><li><a href="examples.html#style" data-node="style">Style</a></li></ol></li></ol></li><li><a href="releasing.html" data-node="releasing">Releasing</a><ol><li><a href="bundler.html" data-node="bundler">Bundler</a><ol><li><a href="api.html" data-node="api">API</a></li></ol></li><li><a href="resources.html" data-node="resources">Resources</a><ol><li><a href="1-api.html" data-node="1-api">API</a></li></ol></li></ol></li><li><a href="api-reference.html" data-node="api-reference">API Reference</a><ol><li><a href="core.html" data-node="core">Core</a></li><li><a href="setup.html" data-node="setup">Setup</a></li><li><a href="windows.html" data-node="windows">Windows</a></li><li><a href="2-bundler.html" data-node="2-bundler">Bundler</a></li><li><a href="3-resources.html" data-node="3-resources">Resources</a></li><li><a href="driver.html" data-node="driver">Driver</a></li></ol></li></ol>
     </aside>
     <main class="codex-section">
-      <p></p><p>The following examples illustrate the structure of a Ceramic application.</p><h1 id="9-markedit">MarkEdit</h1><a href="https://github.com/ceramic/markedit/">MarkEdit</a> is a simple Markdown
+      <p>The following examples illustrate the structure of a Ceramic application.</p><h1 id="0-markedit">MarkEdit</h1><p><a href="https://github.com/ceramic/markedit/">MarkEdit</a> is a simple Markdown
 editor and previewer, designed to showcase the basic set of Ceramic's
-functionality. This is a breakdown of its implementation.<h2 id="system-definition">System Definition</h2><p></p><p>This is where we start: we define the project's metadata, depend on Lucerne (for
+functionality. This is a breakdown of its implementation.</p><h2 id="system-definition">System Definition</h2><p>This is where we start: we define the project's metadata, depend on Lucerne (for
 the web app) and 3bmd for Markdown-to-HTML conversion. We also depend on a small
 extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem markedit
   :author &quot;Fernando Borretti &lt;eudoxiahp@gmail.com&gt;&quot;
@@ -82,7 +82,8 @@ extension for GitHub-style code blocks.</p><pre><code class="lisp">(defsystem ma
   #.(uiop:read-file-string
      (uiop:subpathname *load-pathname* &quot;README.md&quot;))
   :in-order-to ((test-op (test-op markedit-test))))
-</code></pre><h2 id="server">Server</h2><p></p><p>First, the package definition. We use all of <code>:lucerne</code> to make the views
+
+</code></pre><h2 id="server">Server</h2><p>First, the package definition. We use all of <code>:lucerne</code> to make the views
 easier, import <code>define-resources</code> and <code>resource-directory</code> from
 <code>:ceramic.resource</code> and export both the <code>app</code> object and the <code>start-app</code>
 function.</p><p>Note how at the end we insert a call to <code>annot:enable-annot-syntax</code>. This
@@ -97,21 +98,24 @@ allows us to use the <code>@route</code> reader macro.</p><pre><code class="lisp
   (:documentation &quot;Main MarkEdit code.&quot;))
 (in-package :markedit)
 (annot:enable-annot-syntax)
-</code></pre><p></p><p>Now we define the app's resources, by associating the <code>assets</code> tag with the
+
+</code></pre><p>Now we define the app's resources, by associating the <code>assets</code> tag with the
 <code>assets/</code> directory and, similarly, associating <code>templates</code> with
 <code>templates/</code>.</p><pre><code class="lisp">;;; App resources
 
 (define-resources :markedit ()
   (assets #p&quot;assets/&quot;)
   (templates #p&quot;templates/&quot;))
-</code></pre><p></p><p>Then, we define the app, and tell it to use the static-file middleware to serve
+
+</code></pre><p>Then, we define the app, and tell it to use the static-file middleware to serve
 files in the <code>assets</code> directory on the <code>/static/</code> path.</p><pre><code class="lisp">;;; App
 
 (defapp app
   :middlewares ((clack.middleware.static:&lt;clack-middleware-static&gt;
                  :root (resource-directory 'assets)
                  :path &quot;/static/&quot;)))
-</code></pre><p></p><p>Next, templates: We tell Djula to look for them in the directory in the
+
+</code></pre><p>Next, templates: We tell Djula to look for them in the directory in the
 <code>templates</code> tag, and tell it to compile the &quot;index.html&quot; template it finds
 there.</p><pre><code class="lisp">;;; Templates
 
@@ -120,7 +124,8 @@ there.</p><pre><code class="lisp">;;; Templates
 
 (defparameter +index+
   (djula:compile-template* &quot;index.html&quot;))
-</code></pre><p></p><p>And now, the actual views: We define a convenience <code>markdown-to-html</code> function
+
+</code></pre><p>And now, the actual views: We define a convenience <code>markdown-to-html</code> function
 that does precisely what it says on the tin. Then, two views: The index view
 that shows the editor/previewer template and the API view that takes a Markdown
 string and responds with the corresponding HTML.</p><pre><code class="lisp">;;; Views
@@ -141,18 +146,15 @@ string and responds with the corresponding HTML.</p><pre><code class="lisp">;;; 
   &quot;This part of the API receives Markdown and emits HTML&quot;
   (with-params (markdown)
     (respond (markdown-to-html markdown))))
-</code></pre><p></p><p>Finally, some startup code:</p><pre><code class="lisp">;;; Startup
 
-(defvar *port* 40000)
-
-(defun start-app ()
-  (start app :port *port*))
+</code></pre><p>Finally, some startup code:</p><pre><code class="lisp">(defparameter *port* 9000)
 
 (ceramic:define-entry-point :markedit ()
+  (start app :port *port*)
   (let ((window (ceramic:make-window :url (format nil &quot;http://localhost:~D/&quot; *port*))))
-    (ceramic:show-window window)
-    (start-app)))
-</code></pre><h2 id="templates">Templates</h2><p></p><p>As usual, we begin with a <code>base.html</code> template that other templates inherit
+    (ceramic:show window)))
+
+</code></pre><h2 id="templates">Templates</h2><p>As usual, we begin with a <code>base.html</code> template that other templates inherit
 from:</p><pre><code class="djula">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
   {% include &quot;includes/head.html&quot; %}
@@ -160,7 +162,8 @@ from:</p><pre><code class="djula">&lt;!DOCTYPE html&gt;
     {% block content %}{% endblock %}
   &lt;/body&gt;
 &lt;/html&gt;
-</code></pre><p></p><p>In <code>includes/head.html</code>, we just load our assets:</p><pre><code class="djula">&lt;head&gt;
+
+</code></pre><p>In <code>includes/head.html</code>, we just load our assets:</p><pre><code class="djula">&lt;head&gt;
   &lt;meta charset=&quot;utf-8&quot;&gt;
   &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
   &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
@@ -168,7 +171,8 @@ from:</p><pre><code class="djula">&lt;!DOCTYPE html&gt;
   &lt;link href=&quot;/static/css/style.css&quot; rel=&quot;stylesheet&quot;&gt;
   &lt;script src=&quot;/static/js/scripts.js&quot;&gt;&lt;/script&gt;
 &lt;/head&gt;
-</code></pre><p></p><p>And finally, the <code>index.html</code> template, which holds the editor and previewer
+
+</code></pre><p>And finally, the <code>index.html</code> template, which holds the editor and previewer
 panes:</p><pre><code class="djula">{% extends &quot;base.html&quot; %}
 
 {% block content %}
@@ -180,7 +184,8 @@ panes:</p><pre><code class="djula">{% extends &quot;base.html&quot; %}
     &lt;/div&gt;
   &lt;/div&gt;
 {% endblock %}
-</code></pre><h2 id="javascript">JavaScript</h2><p></p><p>We'll just write some awful JavaScript that checks periodically for changes to
+
+</code></pre><h2 id="javascript">JavaScript</h2><p>We'll just write some awful JavaScript that checks periodically for changes to
 the input <code>textarea</code>, and if it finds them, sends them to the server and
 inserts the result into the output pane.</p><pre><code class="javascript">/* JavaScript */
 
@@ -218,7 +223,8 @@ document.addEventListener(&quot;DOMContentLoaded&quot;, function(event) {
   setInterval(postMarkdown, 500);
   postMarkdown();
 });
-</code></pre><h2 id="style">Style</h2><p></p><p>First, the general layout:</p><pre><code class="css">@charset &quot;utf-8&quot;;
+
+</code></pre><h2 id="style">Style</h2><p>First, the general layout:</p><pre><code class="css">@charset &quot;utf-8&quot;;
 
 /* Make the textarea and output occupy two columns on the entire screen. */
 
@@ -249,7 +255,8 @@ body {
     font-family: Consolas, Menlo, Monaco, Lucida Console, monospace;
     resize: none;
 }
-</code></pre><p></p><p>We then style the input <code>textarea</code>: Here's where we create the black border
+
+</code></pre><p>We then style the input <code>textarea</code>: Here's where we create the black border
 separating the two panes, and add some padding.</p><pre><code class="css">/* Input textarea style */
 
 #input-container {
@@ -257,7 +264,8 @@ separating the two panes, and add some padding.</p><pre><code class="css">/* Inp
     box-sizing: border-box;
     padding: 25px;
 }
-</code></pre><p></p><p>The next section is just styling the output so it looks good:</p><pre><code class="css">/* Output style */
+
+</code></pre><p>The next section is just styling the output so it looks good:</p><pre><code class="css">/* Output style */
 
 a:link, a:visited, a:hover, a:active {
     color: #4183C4;
@@ -292,6 +300,7 @@ blockquote {
     font-style: italic;
     width: 80%;
 }
+
 </code></pre>
     </main>
   </article>
